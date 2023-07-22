@@ -167,3 +167,106 @@ const observable$: Observable<any> = new Observable((subscriber: Subscriber<any>
 |                                                        |                                                            |
 | ------------------------------------------------------ | ---------------------------------------------------------- |
 | ![width:300px](./images/Time%20interval%20counter.jpg) | ![width:300px](./images/Mouse%20text%20click%20events.jpg) |
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+
+# Subscriber
+
+- Internamente RxJs cada _observer_ es convertido en un _subscriber_
+- Un _subscriber_ es básicamente un _observer_ con características adicionales para _de subscribirse_ de un _observable_.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- footer: '' -->
+
+# Subscription
+
+- En RxJs llamamos al método _subscribe()_ en un _observable_ para comenzar a recibir notificaciones.
+- El método _subscribe()_ recibe un _observer_ para saber a dónde enviar las notificaciones.
+- Si no nos _subscribimos_ no recibiremos las notificaciones (comportamiento lazy).
+
+```typescript
+const subscription: Subscription = observable$.subscribe({
+  complete: (): void => console.log("✅ - Done"),
+  error: (error: Error): void => console.error("❌ - Something wrong occurred: %O", error),
+  next: (value: any): void => console.log("✔️ - Got value %O", value),
+});
+```
+
+---
+
+<!-- _class: invert -->
+
+# Operadores en RxJs
+
+- Los _operadores_ son las piezas esenciales que permiten componer de manera fácil y declarativa código asíncrono complejo.
+- Los _operators_ son funciones.
+- Existen dos tipos de operadores *de creación" y *conectables\*.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- footer: '' -->
+
+# Creation operators
+
+- Crear los observables desde 0 no es la mejor manera de utilizarlos.
+- **RxJs** cuenta con un amplio conjunto de funciones de creación.
+- Una **Creation function (o Creation operator)** es una manera sencilla de crear un observable con un comportamiento popular.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- footer: '' -->
+
+Ejemplos (Creation operators):
+
+- **ajax**: permite crear observables que realizan llamadas HTTP.
+- **of**: emite los valores proporcionados como argumentos y se completa.
+- **from**: convierte cosas como arreglos, promesas, iterables en un observable.
+- **fromEvent**: crea un observable a partir de algún objetivo. Suscribirse y cancelar la suscripción funciona aquí como 'addEventListener' y 'removeEventListener'.
+- **interval**: genera un observable que emite notificaciones en intervalos.
+- **forkJoin**: Acepta una arreglo de observables como entrada. Después de completarse todos estos observables, emite un conjunto de los últimos valores emitidos por cada uno de ellos. Muy útil si necesita esperar por el resultado de un par de llamadas HTTP.
+- **combineLatest**: También acepta múltiples observables como entrada. Cada vez que cualquiera de ellos emite algo nuevo, un conjunto combinado de los últimos valores se emitirá como un arreglo.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- footer: '' -->
+
+# Pipeable operators
+
+- Son una de las características más poderosas de **RXJS**.
+- Nos permiten _transformar_ notificaciones enviadas por un observable de innumerables maneras.
+- Nos permite escribir lógica asíncrona compleja con solo unas pocas líneas de código, lo que facilita la lectura y el trabajo.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- footer: '' -->
+
+Ejemplos (Pipeable operators):
+
+- **filter**: Es similar al operador _filter_ en arreglos de JavaScript, la idea general es la misma. Sin embargo, en lugar de filtrar los elementos en el arreglo, el operador _filter_ filtra los valores emitidos y los pasa a través o no.
+- **map**: Es la contraparte en el mundo de streams del operador _map_ de los arreglos en JavaScript. Este operador toma el valor emitido y puede transformarlo en algún otro valor. Útil para extraer una propiedad anidada dentro de un objeto más complejo.
+- **tap**: Nos permite causar efectos secundarios sin cambiar las notificaciones. Útil para fines de depuración y aprendizaje.Podemos usarlo para registrar los valores emitidos en cualquier etapa de la tubería de operadores si utilizamos múltiples operadores apilados.
+- **debounceTime**: Es útil si la fuente observable emite muchos valores y luego se establece. Esto a menudo se utiliza con las entradas que produce del usuario. Un ejemplo puede ser un escenario en el que el usuario escriba algún valor en un campo de entrada y un valor se re calcula consumiendo tiempo considerable y recursos por cada pulsación de las teclas.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- footer: '' -->
+
+Ejemplos (Pipeable operators):
+
+- **catchError**: Cuando la fuente observable presenta una notificación de error, este operador no pasará este error, sino que usará el observable _fallback_ proporcionado como la nueva fuente.

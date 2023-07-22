@@ -1,14 +1,13 @@
+/* ••[1]••••••••••••••••••••••••• app.component.ts •••••••••••••••••••••••••••••• */
+
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: true,
-    imports: [NgSwitch, NgSwitchDefault, NgSwitchCase, RouterOutlet]
+  imports: [CommonModule, RouterOutlet],
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
 })
-export class AppComponent {
-  title = 'rxjs-y-el-paradigma-reactivo';
-}
+export class AppComponent {}

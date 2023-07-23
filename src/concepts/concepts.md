@@ -7,6 +7,16 @@ style: |
   section { font-size: 26px; } h1, h2, h3 { color: #CF178F; text-shadow: 1px 1px 2px black; } ul { text-align: left; width: 100%; font-size: 24px; list-style: none; } li::before { content: "\2022"; color: #CF178F; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; text-shadow: 1px 1px 2px black;} strong, em { color: #964CDF}
 ---
 
+<!-- _backgroundColor: #000 -->
+<!-- _class: invert -->
+
+# RxJs y el paradigma reactivo
+
+- Presenta: Eli Jaimes
+- Julio 2023
+
+---
+
 <!-- _class: invert -->
 
 # ¿Qué es RxJs?
@@ -235,6 +245,48 @@ Ejemplos (Creation operators):
 - **interval**: genera un observable que emite notificaciones en intervalos.
 - **forkJoin**: Acepta una arreglo de observables como entrada. Después de completarse todos estos observables, emite un conjunto de los últimos valores emitidos por cada uno de ellos. Muy útil si necesita esperar por el resultado de un par de llamadas HTTP.
 - **combineLatest**: También acepta múltiples observables como entrada. Cada vez que cualquiera de ellos emite algo nuevo, un conjunto combinado de los últimos valores se emitirá como un arreglo.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+
+### forkJoin
+
+- Acepta una arreglo de observables como entrada. _Después de completarse todos estos observables_, emite un conjunto de los últimos valores emitidos por cada uno de ellos.
+- Muy útil si necesita esperar por el resultado de un par de llamadas HTTP.
+
+## ![width:470px](./images/forkJoin.png)
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+
+|                                        |                                        |
+| -------------------------------------- | -------------------------------------- |
+| ![width:550px](./images/forkJoin2.jpg) | ![width:550px](./images/forkJoin3.jpg) |
+| ![width:550px](./images/forkJoin4.jpg) |                                        |
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+
+### combineLatest
+
+- También acepta múltiples observables como entrada. Cada vez que cualquiera de ellos emite algo nuevo, un conjunto combinado de los últimos valores se emitirá como un arreglo.
+
+![width:600px](./images/combineLatest.png)
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+
+![width:800px](./images/combineLatest2.jpg)
+
+![width:800px](./images/combineLatest3.jpg)
 
 ---
 

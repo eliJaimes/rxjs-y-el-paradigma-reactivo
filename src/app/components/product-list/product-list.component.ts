@@ -1,15 +1,14 @@
 /* ••[1]••••••••••••••••••••••••• product-list.component.ts •••••••••••••••••••••••••••••• */
 
+import { catchError, EMPTY, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
-import { Observable } from 'rxjs';
 import { ProductsService } from 'src/app/services/products.service';
 import { ProductT } from 'src/app/entities/product.type';
 
 @Component({
-  imports: [CommonModule, MatChipsModule, MatTableModule],
+  imports: [CommonModule, MatTableModule],
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.component.html',
@@ -29,7 +28,14 @@ export class ProductListComponent implements OnInit {
 
   public constructor(private readonly productsService: ProductsService) {}
 
+  /* TODO: handle possible errors from products service */
+
   public ngOnInit(): void {
-    this.products$ = this.productsService.getProducts();
+    this.products$ = this.productsService.getProducts().pipe(
+      catchError((error: string): Observable<never> => {
+        this.errorMessage = error;
+        return EMPTY;
+      })
+    );
   }
 }

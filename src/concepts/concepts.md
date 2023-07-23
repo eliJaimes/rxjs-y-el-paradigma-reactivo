@@ -240,6 +240,48 @@ Ejemplos (Creation operators):
 
 <!-- _backgroundColor: #2D282E -->
 <!-- _color: white -->
+
+### forkJoin
+
+- Acepta una arreglo de observables como entrada. _Después de completarse todos estos observables_, emite un conjunto de los últimos valores emitidos por cada uno de ellos.
+- Muy útil si necesita esperar por el resultado de un par de llamadas HTTP.
+
+## ![width:470px](./images/forkJoin.png)
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+
+|                                        |                                        |
+| -------------------------------------- | -------------------------------------- |
+| ![width:550px](./images/forkJoin2.jpg) | ![width:550px](./images/forkJoin3.jpg) |
+| ![width:550px](./images/forkJoin4.jpg) |                                        |
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+
+### combineLatest
+
+- También acepta múltiples observables como entrada. Cada vez que cualquiera de ellos emite algo nuevo, un conjunto combinado de los últimos valores se emitirá como un arreglo.
+
+![width:600px](./images/combineLatest.png)
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+
+![width:800px](./images/combineLatest2.jpg)
+
+![width:800px](./images/combineLatest3.jpg)
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
 <!-- footer: '' -->
 
 # Pipeable operators

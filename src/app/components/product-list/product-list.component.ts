@@ -15,8 +15,6 @@ import { ProductT } from 'src/app/entities/product.type';
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent {
-  /* TODO: add the price column incrementing the value by 50% */
-
   public displayedColumns: Array<string> = [
     'id',
     'productCode',

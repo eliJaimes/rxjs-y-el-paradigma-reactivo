@@ -3,7 +3,7 @@
 <div class="app-product-list">
   <div
     class="m-auto my-4 max-w-3xl"
-    *ngIf="productsWithCategory$ | async as products; else loadingRef"
+    *ngIf="productsFilteredByCategory$ | async as products; else loadingRef"
   >
     <table mat-table [dataSource]="products">
       <!-- Id -->

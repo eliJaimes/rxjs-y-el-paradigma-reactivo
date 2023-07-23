@@ -1,13 +1,22 @@
 /* ••[1]••••••••••••••••••••••••• product-list.component.ts •••••••••••••••••••••••••••••• */
 
 import { catchError, EMPTY, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ProductsService } from 'src/app/services/products.service';
 import { ProductT } from 'src/app/entities/product.type';
 
+/* TODO: upgrade change detection strategy */
+/*
+  Component is only checked when:
+  - @Input properties change
+  - Event emits
+  - A bound Observable emits
+*/
+
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, MatTableModule],
   selector: 'app-product-list',
   standalone: true,
@@ -27,8 +36,6 @@ export class ProductListComponent implements OnInit {
   public errorMessage: string | undefined = undefined;
 
   public constructor(private readonly productsService: ProductsService) {}
-
-  /* TODO: handle possible errors from products service */
 
   public ngOnInit(): void {
     this.products$ = this.productsService.getProducts().pipe(

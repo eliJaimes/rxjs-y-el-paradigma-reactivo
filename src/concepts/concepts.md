@@ -4,7 +4,17 @@ theme: uncover
 paginate: true
 footer: Concepts
 style: |
-  section { font-size: 26px; } h1, h3 { color: #CF178F; text-shadow: 1px 1px 2px black; } ul { text-align: left; width: 100%; font-size: 24px; list-style: none; } li::before { content: "\2022"; color: #CF178F; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; text-shadow: 1px 1px 2px black;} strong, em { color: #964CDF}
+  section { font-size: 26px; } h1, h2, h3 { color: #CF178F; text-shadow: 1px 1px 2px black; } ul { text-align: left; width: 100%; font-size: 24px; list-style: none; } li::before { content: "\2022"; color: #CF178F; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; text-shadow: 1px 1px 2px black;} strong, em { color: #964CDF}
+---
+
+<!-- _backgroundColor: #000 -->
+<!-- _class: invert -->
+
+# RxJs y el paradigma reactivo
+
+- Presenta: Eli Jaimes
+- Julio 2023
+
 ---
 
 <!-- _class: invert -->
@@ -22,7 +32,8 @@ style: |
 
 ### RxJs
 
-Nos permite observar y reaccionar a los datos a medida que fluyen a través del tiempo
+Nos permite observar y reaccionar a los datos a medida que
+fluyen a través del tiempo.
 
 - **Emitir** elementos
 - **Reaccionar** a cada elemento emitido
@@ -102,7 +113,7 @@ Nos permite observar y reaccionar a los datos a medida que fluyen a través del 
 
 # Marble diagrams
 
-- Permiten visualizar valores emitidos a través del tiempo
+- Permiten visualizar valores emitidos a través del tiempo.
 
 |                                                   |                                                      |
 | ------------------------------------------------- | ---------------------------------------------------- |
@@ -118,8 +129,7 @@ Nos permite observar y reaccionar a los datos a medida que fluyen a través del 
 
 # Observer
 
-- Un _observer_ es un objeto que observa y responde a
-  notificaciones especificadas como métodos. _next()_ para manejar el siguiente dato emitido, _error()_ para manejar una condición de error y _complete()_ para manejar un procesamiento final o limpieza.
+- Un _observer_ es un objeto que observa y responde a notificaciones especificadas como métodos. _next()_ para manejar el siguiente dato emitido, _error()_ para manejar una condición de error y _complete()_ para manejar un procesamiento final o limpieza.
 - **Observer**: Una colección de _callbacks_ que saben escuchar los valores entregados por un _observable_.
 - **Observer**: es un consumidor de valores entregados por un _observable_.
 - En RxJs, un _observer_ es definido como una interfaz con métodos _next()_, _error()_ y _complete()_.
@@ -152,7 +162,7 @@ const observer: Observer<any> = {
 
 - **Observable**: una colección de eventos o valores emitidos tiempo.
 - Un _observable_ puede ser síncrono o asíncrono, emitir valores finitos o infinitos.
-- Podemos operar los valores emitidos con métodos (map, filter, concat). Dado que los valores se emiten a través del tiempo podemos aplicar operadores basados en el tiempo (delay, timeout.)
+- Podemos operar los valores emitidos con métodos (map, filter, concat). Dado que los valores se emiten a través del tiempo podemos aplicar operadores basados en el tiempo (delay, timeout).
 
 ```typescript
 const observable$: Observable<any> = new Observable((subscriber: Subscriber<any>): void => {
@@ -175,7 +185,7 @@ const observable$: Observable<any> = new Observable((subscriber: Subscriber<any>
 
 # Subscriber
 
-- Internamente RxJs cada _observer_ es convertido en un _subscriber_
+- Internamente RxJs cada _observer_ es convertido en un _subscriber_.
 - Un _subscriber_ es básicamente un _observer_ con características adicionales para _de subscribirse_ de un _observable_.
 
 ---
@@ -270,3 +280,17 @@ Ejemplos (Pipeable operators):
 Ejemplos (Pipeable operators):
 
 - **catchError**: Cuando la fuente observable presenta una notificación de error, este operador no pasará este error, sino que usará el observable _fallback_ proporcionado como la nueva fuente.
+
+---
+
+<!-- _class: invert -->
+
+## Volvámonos reactivos en Angular con RxJs
+
+Volverse reactivo significa:
+
+- Dejar atrás los _patrones procedurales_.
+- _Trabajar con observables directamente_, en lugar de leer datos en un arreglo y después vincular a ese arreglo, utilizaremos y vincularemos observables
+- Crear _observable pipelines_ que reaccionen a datos emitidos, mientras que utilizamos los operadores disponibles en RxJs
+- _Transformar_, _componer_ y _combinar_ observables para manejar múltiples fuentes de datos
+- Definir _action streams_ para fácilmente reaccionar a las acciones del usuario

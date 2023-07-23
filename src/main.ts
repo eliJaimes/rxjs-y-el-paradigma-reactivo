@@ -1,17 +1,22 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+/* ••[1]••••••••••••••••••••••••• main.ts •••••••••••••••••••••••••••••• */
 
-
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app/components/app/app.component';
+import { AppData } from './app/data/app-data';
+import { AppRoutingModule } from './app/components/app/app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
-import { AppComponent } from './app/app.component';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app/app-routing.module';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-
 
 bootstrapApplication(AppComponent, {
-    providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule),
-        provideAnimations()
-    ]
-})
-  .catch(err => console.error(err));
+  providers: [
+    importProvidersFrom(
+      AppRoutingModule,
+      BrowserModule,
+      HttpClientModule,
+      InMemoryWebApiModule.forRoot(AppData, { delay: 1000 })
+    ),
+    provideAnimations(),
+  ],
+}).catch((err: Error): void => console.error(err));

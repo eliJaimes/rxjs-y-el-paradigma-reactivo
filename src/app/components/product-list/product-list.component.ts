@@ -17,7 +17,7 @@ import { ProductT } from 'src/app/entities/product.type';
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent {
-  /* TODO: replace the categoryId column with the name of the related category */
+  /* TODO: add a filter to display products of certain category */
 
   public displayedColumns: Array<string> = [
     'id',
@@ -27,6 +27,8 @@ export class ProductListComponent {
     'quantityInStock',
     'price',
   ];
+
+  public selectedCategoryId: number | undefined = undefined;
 
   public products$: Observable<Array<ProductT>> =
     this.productsService.products$.pipe(
@@ -65,6 +67,18 @@ export class ProductListComponent {
         )
     )
   );
+
+  public productsFilteredByCategory$: Observable<Array<ProductT>> =
+    this.productsWithCategory$.pipe(
+      map(
+        (products: Array<ProductT>): Array<ProductT> =>
+          products.filter((product: ProductT): boolean =>
+            this.selectedCategoryId
+              ? product.categoryId === this.selectedCategoryId
+              : true
+          )
+      )
+    );
 
   public errorMessage: string | undefined = undefined;
 

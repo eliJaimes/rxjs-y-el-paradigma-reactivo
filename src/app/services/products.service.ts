@@ -1,6 +1,6 @@
 /* ••[1]••••••••••••••••••••••••• products.service.ts •••••••••••••••••••••••••••••• */
 
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { HandleErrorService } from './handle-error.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,11 +19,8 @@ export class ProductsService {
   ) {}
 
   public getProducts(): Observable<Array<ProductT>> {
-    return this.httpClient.get<Array<ProductT>>(this.productsUrl).pipe(
-      tap((_products: Array<ProductT>): void => {
-        console.log('Products: ', JSON.stringify(_products));
-      }),
-      catchError(this.handleErrorService.handleError)
-    );
+    return this.httpClient
+      .get<Array<ProductT>>(this.productsUrl)
+      .pipe(catchError(this.handleErrorService.handleError));
   }
 }

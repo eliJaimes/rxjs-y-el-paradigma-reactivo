@@ -1,6 +1,6 @@
 /* ••[1]••••••••••••••••••••••••• product-list.component.ts •••••••••••••••••••••••••••••• */
 
-import { catchError, EMPTY, Observable } from 'rxjs';
+import { catchError, EMPTY, map, Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -15,18 +15,28 @@ import { ProductT } from 'src/app/entities/product.type';
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent {
+  /* TODO: add the price column incrementing the value by 50% */
+
   public displayedColumns: Array<string> = [
     'id',
     'productCode',
     'productName',
     'categoryId',
     'quantityInStock',
+    'price',
   ];
-
-  /* TODO: use the declarative pattern */
 
   public products$: Observable<Array<ProductT>> =
     this.productsService.products$.pipe(
+      map(
+        (products: Array<ProductT>): Array<ProductT> =>
+          products.map(
+            (product: ProductT): ProductT => ({
+              ...product,
+              price: product.price ? +(product.price * 1.5).toFixed(2) : 0,
+            })
+          )
+      ),
       catchError((error: string): Observable<never> => {
         this.errorMessage = error;
         return EMPTY;

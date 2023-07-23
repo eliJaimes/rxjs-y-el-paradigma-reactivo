@@ -1,20 +1,19 @@
 /* ••[1]••••••••••••••••••••••••• product-list.component.ts •••••••••••••••••••••••••••••• */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { ProductsService } from 'src/app/services/products.service';
 import { ProductT } from 'src/app/entities/product.type';
-import { Subscription } from 'rxjs';
 
 @Component({
-  imports: [CommonModule, MatChipsModule, MatTableModule],
+  imports: [CommonModule, MatTableModule],
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.component.html',
 })
-export class ProductListComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnInit {
   public displayedColumns: Array<string> = [
     'id',
     'productCode',
@@ -23,26 +22,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
     'quantityInStock',
   ];
 
-  public products: Array<ProductT> | undefined = undefined;
+  /* TODO: subscribe directly from the template */
 
-  public productsSubscription!: Subscription;
+  public products$: Observable<Array<ProductT>> | undefined = undefined;
 
   public errorMessage: string | undefined = undefined;
 
   public constructor(private readonly productsService: ProductsService) {}
 
   public ngOnInit(): void {
-    this.productsSubscription = this.productsService.getProducts().subscribe({
-      error: (error: string): void => {
-        this.errorMessage = error;
-      },
-      next: (products: Array<ProductT>): void => {
-        this.products = products;
-      },
-    });
-  }
-
-  public ngOnDestroy(): void {
-    this.productsSubscription?.unsubscribe();
+    this.products$ = this.productsService.getProducts();
   }
 }

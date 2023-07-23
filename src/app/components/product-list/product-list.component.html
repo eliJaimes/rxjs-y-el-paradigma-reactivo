@@ -1,7 +1,10 @@
 <!-- ••[1]••••••••••••••••••••••••• product-list.component.html •••••••••••••••••••••••••••••• -->
 
 <div class="app-product-list">
-  <div class="m-auto my-4 max-w-3xl" *ngIf="products; else loadingRef">
+  <div
+    class="m-auto my-4 max-w-3xl"
+    *ngIf="products$ | async as products; else loadingRef"
+  >
     <table mat-table [dataSource]="products">
       <!-- Id -->
       <ng-container matColumnDef="id">

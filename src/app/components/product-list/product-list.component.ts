@@ -17,8 +17,6 @@ import { ProductT } from 'src/app/entities/product.type';
   templateUrl: './product-list.component.html',
 })
 export class ProductListComponent {
-  /* TODO: replace the categoryId column with the name of the related category */
-
   public displayedColumns: Array<string> = [
     'id',
     'productCode',

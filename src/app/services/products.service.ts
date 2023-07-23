@@ -13,14 +13,12 @@ import { ProductT } from '../entities/product.type';
 export class ProductsService {
   private productsUrl: string = ProductsData.url;
 
+  public products$: Observable<Array<ProductT>> = this.httpClient
+    .get<Array<ProductT>>(this.productsUrl)
+    .pipe(catchError(this.handleErrorService.handleError));
+
   public constructor(
     private readonly httpClient: HttpClient,
     private readonly handleErrorService: HandleErrorService
   ) {}
-
-  public getProducts(): Observable<Array<ProductT>> {
-    return this.httpClient
-      .get<Array<ProductT>>(this.productsUrl)
-      .pipe(catchError(this.handleErrorService.handleError));
-  }
 }

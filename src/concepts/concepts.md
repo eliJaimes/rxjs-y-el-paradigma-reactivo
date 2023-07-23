@@ -7,6 +7,16 @@ style: |
   section { font-size: 26px; } h1, h2, h3 { color: #CF178F; text-shadow: 1px 1px 2px black; } ul { text-align: left; width: 100%; font-size: 24px; list-style: none; } li::before { content: "\2022"; color: #CF178F; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; text-shadow: 1px 1px 2px black;} strong, em { color: #964CDF}
 ---
 
+<!-- _backgroundColor: #000 -->
+<!-- _class: invert -->
+
+# RxJs y el paradigma reactivo
+
+- Presenta: Eli Jaimes
+- Julio 2023
+
+---
+
 <!-- _class: invert -->
 
 # ¿Qué es RxJs?
@@ -197,6 +207,45 @@ const subscription: Subscription = observable$.subscribe({
   next: (value: any): void => console.log("✔️ - Got value %O", value),
 });
 ```
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _class: invert -->
+
+# Subjects
+
+- Un _Subject_ es una combinación de un _Observable_ y un _Observer_.
+- Por tanto nos podemos _subscribir_ a un Subject al igual que lo hacemos con los _observables_.
+- Y también podemos utilizar y emitir las notificaciones de _next_, _error_ y _complete_ en el _Subject_, lo que provocará un _multicast_ de estas notificaciones a todas las _suscripciones_ activas.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- _footer: '' -->
+
+![width:1100px](./images/subject2.jpg)
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _class: invert -->
+
+# Behavior subject
+
+- Un _Behavior subject_ es una extensión menor pero importante de un _Subject_.
+- En un _Behavior subject_, cada vez que una nueva suscripción se crea, recibirá una notificación con el último valor emitido.
+- Un _Behavior subject_ almacena el último valor emitido en memoria.
+- Es por tanto que requiere un valor inicial durante su creación.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- _footer: '' -->
+
+![width:1100px](./images/behaviorSubject1.jpg)
 
 ---
 

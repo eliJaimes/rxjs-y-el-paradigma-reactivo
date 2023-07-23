@@ -3,7 +3,7 @@
 <div class="app-product-list">
   <div
     class="m-auto my-4 max-w-3xl"
-    *ngIf="products$ | async as products; else loadingRef"
+    *ngIf="productsWithCategory$ | async as products; else loadingRef"
   >
     <table mat-table [dataSource]="products">
       <!-- Id -->
@@ -24,10 +24,10 @@
         <td mat-cell *matCellDef="let element">{{ element.productName }}</td>
       </ng-container>
 
-      <!-- Category Id -->
-      <ng-container matColumnDef="categoryId">
-        <th mat-header-cell *matHeaderCellDef>Category Id</th>
-        <td mat-cell *matCellDef="let element">{{ element.categoryId }}</td>
+      <!-- Category -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let element">{{ element.category }}</td>
       </ng-container>
 
       <!-- Quantity In Stock -->

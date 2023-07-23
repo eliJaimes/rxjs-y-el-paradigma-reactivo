@@ -200,6 +200,45 @@ const subscription: Subscription = observable$.subscribe({
 
 ---
 
+<!-- _backgroundColor: #2D282E -->
+<!-- _class: invert -->
+
+# Subjects
+
+- Un _Subject_ es una combinación de un _Observable_ y un _Observer_.
+- Por tanto nos podemos _subscribir_ a un Subject al igual que lo hacemos con los _observables_.
+- Y también podemos utilizar y emitir las notificaciones de _next_, _error_ y _complete_ en el _Subject_, lo que provocará un _multicast_ de estas notificaciones a todas las _suscripciones_ activas.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- _footer: '' -->
+
+![width:1100px](./images/subject2.jpg)
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _class: invert -->
+
+# Behavior subject
+
+- Un _Behavior subject_ es una extensión menor pero importante de un _Subject_.
+- En un _Behavior subject_, cada vez que una nueva suscripción se crea, recibirá una notificación con el último valor emitido.
+- Un _Behavior subject_ almacena el último valor emitido en memoria.
+- Es por tanto que requiere un valor inicial durante su creación.
+
+---
+
+<!-- _backgroundColor: #2D282E -->
+<!-- _color: white -->
+<!-- _footer: '' -->
+
+![width:1100px](./images/behaviorSubject1.jpg)
+
+---
+
 <!-- _class: invert -->
 
 # Operadores en RxJs

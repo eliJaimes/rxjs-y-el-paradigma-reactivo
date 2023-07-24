@@ -7,6 +7,7 @@ import {
   EMPTY,
   map,
   Observable,
+  Subject,
 } from 'rxjs';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
@@ -43,7 +44,12 @@ export class ProductListComponent {
     this.selectedCategoryId$$.asObservable();
 
   public productCategories$: Observable<Array<ProductCategoryT>> =
-    this.productCategoriesService.productCategories$;
+    this.productCategoriesService.productCategories$.pipe(
+      catchError((error: string): Observable<never> => {
+        this.errorMessage$$.next(error);
+        return EMPTY;
+      })
+    );
 
   public products$: Observable<Array<ProductT>> =
     this.productsService.products$.pipe(
@@ -57,7 +63,7 @@ export class ProductListComponent {
           )
       ),
       catchError((error: string): Observable<never> => {
-        this.errorMessage = error;
+        this.errorMessage$$.next(error);
         return EMPTY;
       })
     );
@@ -101,7 +107,12 @@ export class ProductListComponent {
       )
     );
 
-  public errorMessage: string | undefined = undefined;
+  private errorMessage$$: Subject<string | undefined> = new Subject<
+    string | undefined
+  >();
+
+  public errorMessage$: Observable<string | undefined> =
+    this.errorMessage$$.asObservable();
 
   public constructor(
     private readonly productsService: ProductsService,

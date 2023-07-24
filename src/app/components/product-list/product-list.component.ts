@@ -1,9 +1,16 @@
 /* ••[1]••••••••••••••••••••••••• product-list.component.ts •••••••••••••••••••••••••••••• */
 
-import { catchError, combineLatest, EMPTY, map, Observable } from 'rxjs';
+import {
+  catchError,
+  combineLatest,
+  EMPTY,
+  map,
+  Observable,
+  Subject,
+} from 'rxjs';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { ProductCategoriesService } from 'src/app/services/productCategories.service';
 import { ProductCategoryT } from 'src/app/entities/productCategory.type';
@@ -29,7 +36,12 @@ export class ProductListComponent {
     'price',
   ];
 
-  public selectedCategoryId: number | undefined = undefined;
+  private selectedCategoryId$$: Subject<number | undefined> = new Subject<
+    number | undefined
+  >();
+
+  public selectedCategoryIdAction$: Observable<number | undefined> =
+    this.selectedCategoryId$$.asObservable();
 
   public productCategories$: Observable<Array<ProductCategoryT>> =
     this.productCategoriesService.productCategories$;
@@ -73,12 +85,18 @@ export class ProductListComponent {
   );
 
   public productsFilteredByCategory$: Observable<Array<ProductT>> =
-    this.productsWithCategory$.pipe(
+    combineLatest([
+      this.productsWithCategory$,
+      this.selectedCategoryIdAction$,
+    ]).pipe(
       map(
-        (products: Array<ProductT>): Array<ProductT> =>
+        ([products, selectedCategoryId]: [
+          Array<ProductT>,
+          number | undefined
+        ]): Array<ProductT> =>
           products.filter((product: ProductT): boolean =>
-            this.selectedCategoryId
-              ? product.categoryId === this.selectedCategoryId
+            selectedCategoryId
+              ? product.categoryId === selectedCategoryId
               : true
           )
       )
@@ -92,9 +110,6 @@ export class ProductListComponent {
   ) {}
 
   public selectedCategoryIdChange(event: MatSelectChange): void {
-    console.log('%c\nselectedCategoryIdChange', 'color: SpringGreen');
-    console.log('event: ', event);
-
-    this.selectedCategoryId = +event.value;
+    this.selectedCategoryId$$.next(+event.value);
   }
 }

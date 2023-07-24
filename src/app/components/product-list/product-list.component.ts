@@ -3,6 +3,7 @@
 import { catchError, combineLatest, EMPTY, map, Observable } from 'rxjs';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { ProductCategoriesService } from 'src/app/services/productCategories.service';
 import { ProductCategoryT } from 'src/app/entities/productCategory.type';
@@ -11,7 +12,7 @@ import { ProductT } from 'src/app/entities/product.type';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, MatTableModule],
+  imports: [CommonModule, MatSelectModule, MatTableModule],
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.component.html',
@@ -29,6 +30,9 @@ export class ProductListComponent {
   ];
 
   public selectedCategoryId: number | undefined = undefined;
+
+  public productCategories$: Observable<Array<ProductCategoryT>> =
+    this.productCategoriesService.productCategories$;
 
   public products$: Observable<Array<ProductT>> =
     this.productsService.products$.pipe(
@@ -49,7 +53,7 @@ export class ProductListComponent {
 
   public productsWithCategory$: Observable<Array<ProductT>> = combineLatest([
     this.products$,
-    this.productCategoriesService.productCategories$,
+    this.productCategories$,
   ]).pipe(
     map(
       ([products, productCategories]: [
@@ -86,4 +90,11 @@ export class ProductListComponent {
     private readonly productsService: ProductsService,
     private readonly productCategoriesService: ProductCategoriesService
   ) {}
+
+  public selectedCategoryIdChange(event: MatSelectChange): void {
+    console.log('%c\nselectedCategoryIdChange', 'color: SpringGreen');
+    console.log('event: ', event);
+
+    this.selectedCategoryId = +event.value;
+  }
 }

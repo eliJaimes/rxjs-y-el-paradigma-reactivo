@@ -1,12 +1,12 @@
 /* ••[1]••••••••••••••••••••••••• product-list.component.ts •••••••••••••••••••••••••••••• */
 
 import {
+  BehaviorSubject,
   catchError,
   combineLatest,
   EMPTY,
   map,
   Observable,
-  Subject,
 } from 'rxjs';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
@@ -36,9 +36,8 @@ export class ProductListComponent {
     'price',
   ];
 
-  private selectedCategoryId$$: Subject<number | undefined> = new Subject<
-    number | undefined
-  >();
+  private selectedCategoryId$$: BehaviorSubject<number | undefined> =
+    new BehaviorSubject<number | undefined>(undefined);
 
   public selectedCategoryIdAction$: Observable<number | undefined> =
     this.selectedCategoryId$$.asObservable();

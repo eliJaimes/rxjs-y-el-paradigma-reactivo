@@ -7,6 +7,16 @@ style: |
   section { font-size: 26px; } h1, h2, h3 { color: #CF178F; text-shadow: 1px 1px 2px black; } ul { text-align: left; width: 100%; font-size: 24px; list-style: none; } li::before { content: "\2022"; color: #CF178F; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; text-shadow: 1px 1px 2px black;} strong, em { color: #964CDF}
 ---
 
+<!-- _backgroundColor: #000 -->
+<!-- _class: invert -->
+
+# RxJs y el paradigma reactivo
+
+- Presenta: Eli Jaimes
+- Julio 2023
+
+---
+
 <!-- _class: invert -->
 
 # ¿Qué es RxJs?
@@ -365,3 +375,10 @@ Volverse reactivo significa:
 - Crear _observable pipelines_ que reaccionen a datos emitidos, mientras que utilizamos los operadores disponibles en RxJs
 - _Transformar_, _componer_ y _combinar_ observables para manejar múltiples fuentes de datos
 - Definir _action streams_ para fácilmente reaccionar a las acciones del usuario
+
+---
+
+<!-- _backgroundColor: #000 -->
+<!-- _class: invert -->
+
+# GRACIAS

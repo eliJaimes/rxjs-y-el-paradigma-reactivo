@@ -70,7 +70,7 @@
   </div>
 
   <div
-    *ngIf="errorMessage"
+    *ngIf="errorMessage$ | async as errorMessage"
     class="m-auto my-10 max-w-md rounded-md bg-red-500 p-4 text-center text-2xl text-white shadow-md"
   >
     {{ errorMessage }}

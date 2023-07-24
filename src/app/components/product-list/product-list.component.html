@@ -3,6 +3,24 @@
 <div class="app-product-list">
   <div
     class="m-auto my-4 max-w-3xl"
+    *ngIf="productCategories$ | async as productCategories; else loadingRef"
+  >
+    <mat-form-field>
+      <mat-label>Product Categories</mat-label>
+      <mat-select (selectionChange)="selectedCategoryIdChange($event)">
+        <mat-option [value]="undefined">All categories</mat-option>
+        <mat-option
+          *ngFor="let productCategory of productCategories"
+          [value]="productCategory.id"
+        >
+          {{ productCategory.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div
+    class="m-auto my-4 max-w-3xl"
     *ngIf="productsFilteredByCategory$ | async as products; else loadingRef"
   >
     <table mat-table [dataSource]="products">

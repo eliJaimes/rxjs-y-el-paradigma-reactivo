@@ -62,7 +62,7 @@ fluyen a través del tiempo.
 ### ¿Porqué usar RxJs?
 
 - RxJs proporciona una sola técnica para trabajar con cualquier tipo de datos (eventos del teclado, mouse, datos de arreglos, archivos o una API), podemos trabajar con diferentes fuentes utilizando _las mismas técnicas y operadores_.
-- Se puede _componer_ información fácilmente a parti de diversas fuentes.
+- Se puede _componer_ información fácilmente a partir de diversas fuentes.
 - RxJs puede _producir múltiples valores_ en el tiempo y utiliza un modelo _push_ para notificar cuando ocurren acciones específicas, lo que facilita reaccionar a las interacciones del usuario o cambios en los datos.
 - RxJs es _perezoso_, una evaluación no comienza hasta la suscripción, por lo que podemos crear recetas que solo se ejecutan cuando necesitamos el resultado.
 - RxJs tiene _manejo de errores_ incorporado.
@@ -160,7 +160,7 @@ const observer: Observer<any> = {
 
 # Observable
 
-- **Observable**: una colección de eventos o valores emitidos tiempo.
+- **Observable**: una colección de eventos o valores emitidos en el tiempo.
 - Un _observable_ puede ser síncrono o asíncrono, emitir valores finitos o infinitos.
 - Podemos operar los valores emitidos con métodos (map, filter, concat). Dado que los valores se emiten a través del tiempo podemos aplicar operadores basados en el tiempo (delay, timeout).
 
@@ -177,16 +177,6 @@ const observable$: Observable<any> = new Observable((subscriber: Subscriber<any>
 |                                                        |                                                            |
 | ------------------------------------------------------ | ---------------------------------------------------------- |
 | ![width:300px](./images/Time%20interval%20counter.jpg) | ![width:300px](./images/Mouse%20text%20click%20events.jpg) |
-
----
-
-<!-- _backgroundColor: #2D282E -->
-<!-- _color: white -->
-
-# Subscriber
-
-- Internamente RxJs cada _observer_ es convertido en un _subscriber_.
-- Un _subscriber_ es básicamente un _observer_ con características adicionales para _de subscribirse_ de un _observable_.
 
 ---
 
